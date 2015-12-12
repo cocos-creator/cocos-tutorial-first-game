@@ -6,7 +6,7 @@ cc.Class({
         jumpDuration: 0,
         maxMoveSpeed: 0,
         accel: 0,
-        display: {
+        scoreDisplay: {
             default: null,
             type: cc.ELabel
         }
@@ -20,6 +20,7 @@ cc.Class({
         this.minPosX = -this.node.parent.width/2;
         this.maxPosX = this.node.parent.width/2;
         this.isJumping = false;
+        this.score = 0;
 
         // set jump action
         this.jumpAction = this.setJumpAction();
@@ -28,20 +29,6 @@ cc.Class({
         this.setInputControl();
     },
 
-    getCenterPos: function () {
-        var centerPos = cc.p(this.node._sgNode.x, this.node._sgNode.y + this.node.height/2);
-        this.display.string = 'player center: ' + Math.floor(centerPos.x) + ', ' + Math.floor(centerPos.y);
-        return centerPos;
-    },
-
-    setJumpAction: function () {
-        // jump action 
-        var jumpUp = cc.moveBy(this.jumpDuration, cc.p(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
-        var jumpDown = cc.moveBy(this.jumpDuration, cc.p(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
-        var callback = cc.callFunc(this.onJumpEnd, this);
-        return cc.sequence(jumpUp, jumpDown, callback);
-    },
-    
     setInputControl: function () {
         var self = this;
         //add keyboard input listener to jump, turnLeft and turnRight
@@ -65,6 +52,19 @@ cc.Class({
         }, self);  
     },
 
+    setJumpAction: function () {
+        // jump action 
+        var jumpUp = cc.moveBy(this.jumpDuration, cc.p(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
+        var jumpDown = cc.moveBy(this.jumpDuration, cc.p(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
+        var callback = cc.callFunc(this.onJumpEnd, this);
+        return cc.sequence(jumpUp, jumpDown, callback);
+    },
+
+    getCenterPos: function () {
+        var centerPos = cc.p(this.node._sgNode.x, this.node._sgNode.y + this.node.height/2);
+        return centerPos;
+    },
+
     turnLeft: function() {
         this.speedDelta = -this.accel;
     },
@@ -83,12 +83,21 @@ cc.Class({
         this.isJumping = false;
     },
 
-    getScore: function () {
-        console.log('+1');
+    gainScore: function () {
+        this.score += 1;
+        this.scoreDisplay.string = 'Score: ' + this.score.toString();
     },
 
-    onDestroy: function () {
-        console.log('player destroyed');
+    resetScore: function () {
+        this.score = 0;
+        this.scoreDisplay.string = 'Score: ' + this.score.toString();
+    },
+
+    reset: function (pos) {
+        this.enabled = true;
+        this.xSpeed = 0;
+        this.node.setPosition(pos);
+        this.resetScore();
     },
 
     // called every frame
