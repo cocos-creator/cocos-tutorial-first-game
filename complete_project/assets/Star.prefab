@@ -39,8 +39,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 323.8165025013109,
-      "y": -57.691863359643435
+      "x": 480.00000000000017,
+      "y": 320.00000000000006
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -87,7 +87,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "pickRadius": 45
+    "pickRadius": 60
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -95,6 +95,6 @@
       "__id__": 1
     },
     "asset": null,
-    "fileId": "d7cd7ab1OVIM5H4deie0I3u"
+    "fileId": "d083cPytWNEqpj/IdSWjSRb"
   }
 ]

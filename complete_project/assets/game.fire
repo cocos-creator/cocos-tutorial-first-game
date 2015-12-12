@@ -273,10 +273,11 @@
       "__id__": 5
     },
     "_enabled": true,
-    "jumpHeight": 200,
+    "jumpHeight": 180,
     "jumpDuration": 0.3,
-    "maxMoveSpeed": 400,
-    "accel": 350,
+    "maxMoveSpeed": 550,
+    "accel": 450,
+    "minDragDist": 10,
     "scoreDisplay": {
       "__id__": 4
     }
@@ -752,7 +753,7 @@
       "width": 960,
       "height": 640
     },
-    "_fitWidth": false,
+    "_fitWidth": true,
     "_fitHeight": true
   },
   {
@@ -779,6 +780,11 @@
       "__id__": 20
     },
     "maxStarDuration": 5,
-    "minStarDuration": 3
+    "minStarDuration": 3,
+    "controlHintLabel": {
+      "__id__": 12
+    },
+    "keyboardHint": "A：向左跳\nD：向右跳",
+    "touchHint": "点击左半屏幕：向左跳\n点击右半屏幕：向右跳"
   }
 ]

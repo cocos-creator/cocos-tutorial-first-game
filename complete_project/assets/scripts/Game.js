@@ -26,6 +26,18 @@ var Game = cc.Class({
         },
         maxStarDuration: 0,
         minStarDuration: 0,
+        controlHintLabel: {
+            default: null,
+            type: cc.ELabel
+        },
+        keyboardHint: {
+            default: '',
+            multiline: true
+        },
+        touchHint: {
+            default: '',
+            multiline: true
+        }
     },
 
     // use this for initialization
@@ -34,17 +46,21 @@ var Game = cc.Class({
         this.groundY = this.ground.y + this.ground.height/2;
 
         // store last star's x position
-        this.currentStar = null; 
+        this.currentStar = null;
         this.currentStarX = 0;
         this.timer = 0;
         this.starDuration = 0;
         this.isRunning = false;
+
+        // initialize control hint 
+        var hintText = cc.sys.isMobile ? this.touchHint : this.keyboardHint;
+        this.controlHintLabel.string = hintText;
     },
 
     onStartGame: function () {
         // initialize star timer
         this.isRunning = true;
-        this.btnNode.active = false;
+        this.btnNode.setPositionX(3000);
         this.gameOverNode.active = false;
         this.player.reset(cc.p(0, this.groundY));
         this.spawnNewStar();
@@ -69,7 +85,7 @@ var Game = cc.Class({
         if (!this.currentStar) {
             this.currentStarX = cc.randomMinus1To1() * this.node.width/2;
         }
-        var randX = 0; 
+        var randX = 0;
         var randY = this.groundY + cc.random0To1() * this.player.jumpHeight + 50;
         var maxX = this.node.width/2;
         if (this.currentStarX >= 0) {
@@ -79,7 +95,7 @@ var Game = cc.Class({
         }
         this.currentStarX = randX;
         return cc.p(randX, randY);
-    },    
+    },
 
     // called every frame
     update: function (dt) {
@@ -97,6 +113,6 @@ var Game = cc.Class({
        this.player.enabled = false;
        this.currentStar.destroy();
        this.isRunning = false;
-       this.btnNode.active = true; 
+       this.btnNode.setPositionX(0);
     }
 });

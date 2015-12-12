@@ -6,6 +6,7 @@ cc.Class({
         jumpDuration: 0,
         maxMoveSpeed: 0,
         accel: 0,
+        minDragDist: 0,
         scoreDisplay: {
             default: null,
             type: cc.ELabel
@@ -25,6 +26,9 @@ cc.Class({
         // set jump action
         this.jumpAction = this.setJumpAction();
 
+        // touch input helper
+        this.lastTouchLoc = cc.p(0, 0);
+
         // input management
         this.setInputControl();
     },
@@ -33,7 +37,7 @@ cc.Class({
         var self = this;
         //add keyboard input listener to jump, turnLeft and turnRight
         cc.eventManager.addListener({
-            event: cc.EventListener.KEYBOARD, 
+            event: cc.EventListener.KEYBOARD,
             onKeyPressed: function(keyCode, event) {
                 switch(keyCode) {
                     case cc.KEY.a:
@@ -44,16 +48,48 @@ cc.Class({
                     case cc.KEY.right:
                         self.turnRight();
                         break;
-                    case cc.KEY.space:
-                        self.jump();
-                        break;
+                    // case cc.KEY.space:
+                    //     self.jump();
+                    //     break;
                 }
             }
-        }, self);  
+        }, self);
+
+        function handleTouch(touchLoc) {
+            var dist = cc.pDistance(touchLoc, self.lastTouchLoc);
+            if (dist < self.minDragDist) {
+                self.jump();
+            } else {
+                if (touchLoc.x > self.lastTouchLoc.x) {
+                    self.turnRight();
+                } else {
+                    self.turnLeft();
+                }
+                self.lastTouchLoc = touchLoc;
+            }
+        };
+
+        // touch input
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            onTouchBegan: function(touch, event) {
+                self.lastTouchLoc = touch.getLocation();
+                // don't capture the event
+                return true;
+            },
+            // onTouchMoved: function(touch, event) {
+            //     var touchLoc = touch.getLocation();
+            //     handleTouch(touchLoc, false);
+            // },
+            onTouchEnded: function(touch, event) {
+                var touchLoc = touch.getLocation();
+                handleTouch(touchLoc);
+            }
+        }, self);
     },
 
     setJumpAction: function () {
-        // jump action 
+        // jump action
         var jumpUp = cc.moveBy(this.jumpDuration, cc.p(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
         var jumpDown = cc.moveBy(this.jumpDuration, cc.p(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
         var callback = cc.callFunc(this.onJumpEnd, this);
@@ -96,6 +132,7 @@ cc.Class({
     reset: function (pos) {
         this.enabled = true;
         this.xSpeed = 0;
+        this.jump();
         this.node.setPosition(pos);
         this.resetScore();
     },
