@@ -154,8 +154,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0.026298487837152607,
-      "y": 250.57199211045344
+      "x": 0.026298487837266293,
+      "y": 269.152637271744
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -306,7 +306,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 960,
-      "height": 100
+      "height": 184.6451612903226
     },
     "_children": [],
     "_rotationX": 0,
@@ -316,7 +316,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -270
+      "y": -227.67741935483872
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -396,7 +396,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 278,
+      "width": 348,
       "height": 125
     },
     "_children": [],
@@ -406,8 +406,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 320.61626640010263,
-      "y": 236.9443491027899
+      "x": 285.61626640010263,
+      "y": -235.40948034534148
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -441,7 +441,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_isSystemFontUsed": true,
-    "_N$string": "A：向左转身\nD：向右转身\n空格：跳跃",
+    "_N$string": "A：向左加速\nD：向右加速",
     "_N$horizontalAlign": 2,
     "_N$verticalAlign": 1,
     "_N$overflow": 0
@@ -454,11 +454,11 @@
       "__id__": 11
     },
     "_enabled": true,
-    "_alignFlags": 33,
+    "_alignFlags": 36,
     "_left": 0,
     "_right": 20.38373359989737,
     "_top": 20.555650897210114,
-    "_bottom": 0,
+    "_bottom": 22.09051965465852,
     "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,
@@ -499,8 +499,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 168.04330973894065
+      "x": 3.410605131648481e-13,
+      "y": 205.2046000615215
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -784,7 +784,7 @@
     "controlHintLabel": {
       "__id__": 12
     },
-    "keyboardHint": "A：向左跳\nD：向右跳",
-    "touchHint": "点击左半屏幕：向左跳\n点击右半屏幕：向右跳"
+    "keyboardHint": "A：向左加速\nD：向右加速",
+    "touchHint": "点击左半屏幕：向左加速\n点击右半屏幕：向右加速"
   }
 ]

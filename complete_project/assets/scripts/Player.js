@@ -17,7 +17,8 @@ cc.Class({
     onLoad: function () {
         // variables to store player status
         this.xSpeed = 0;
-        this.speedDelta = 0;
+        this.accLeft = false;
+        this.accRight = false;
         this.minPosX = -this.node.parent.width/2;
         this.maxPosX = this.node.parent.width/2;
         this.isJumping = false;
@@ -25,9 +26,6 @@ cc.Class({
 
         // set jump action
         this.jumpAction = this.setJumpAction();
-
-        // touch input helper
-        this.lastTouchLoc = cc.p(0, 0);
 
         // input management
         this.setInputControl();
@@ -42,48 +40,48 @@ cc.Class({
                 switch(keyCode) {
                     case cc.KEY.a:
                     case cc.KEY.left:
-                        self.turnLeft();
+                        self.accLeft = true;
+                        self.accRight = false;
                         break;
                     case cc.KEY.d:
                     case cc.KEY.right:
-                        self.turnRight();
+                        self.accLeft = false;
+                        self.accRight = true;
                         break;
-                    // case cc.KEY.space:
-                    //     self.jump();
-                    //     break;
+                }
+            },
+            onKeyReleased: function(keyCode, event) {
+                switch(keyCode) {
+                    case cc.KEY.a:
+                    case cc.KEY.left:
+                        self.accLeft = false;
+                        break;
+                    case cc.KEY.d:
+                    case cc.KEY.right:
+                        self.accRight = false;
+                        break;
                 }
             }
         }, self);
-
-        function handleTouch(touchLoc) {
-            var dist = cc.pDistance(touchLoc, self.lastTouchLoc);
-            if (dist < self.minDragDist) {
-                self.jump();
-            } else {
-                if (touchLoc.x > self.lastTouchLoc.x) {
-                    self.turnRight();
-                } else {
-                    self.turnLeft();
-                }
-                self.lastTouchLoc = touchLoc;
-            }
-        };
 
         // touch input
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             onTouchBegan: function(touch, event) {
-                self.lastTouchLoc = touch.getLocation();
+                var touchLoc = touch.getLocation();
+                if (touchLoc.x >= cc.winSize.width/2) {
+                    self.accLeft = false;
+                    self.accRight = true;
+                } else {
+                    self.accLeft = true;
+                    self.accRight = false;
+                }
                 // don't capture the event
                 return true;
             },
-            // onTouchMoved: function(touch, event) {
-            //     var touchLoc = touch.getLocation();
-            //     handleTouch(touchLoc, false);
-            // },
             onTouchEnded: function(touch, event) {
-                var touchLoc = touch.getLocation();
-                handleTouch(touchLoc);
+                self.accLeft = false;
+                self.accRight = false;
             }
         }, self);
     },
@@ -92,31 +90,13 @@ cc.Class({
         // jump action
         var jumpUp = cc.moveBy(this.jumpDuration, cc.p(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
         var jumpDown = cc.moveBy(this.jumpDuration, cc.p(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
-        var callback = cc.callFunc(this.onJumpEnd, this);
-        return cc.sequence(jumpUp, jumpDown, callback);
+        // var callback = cc.callFunc(this.onJumpEnd, this);
+        return cc.repeatForever(cc.sequence(jumpUp, jumpDown));
     },
 
     getCenterPos: function () {
         var centerPos = cc.p(this.node._sgNode.x, this.node._sgNode.y + this.node.height/2);
         return centerPos;
-    },
-
-    turnLeft: function() {
-        this.speedDelta = -this.accel;
-    },
-
-    turnRight: function() {
-        this.speedDelta = this.accel;
-    },
-
-    jump: function() {
-        if (this.isJumping) return;
-        this.node._sgNode.runAction(this.jumpAction);
-        this.isJumping = true;
-    },
-
-    onJumpEnd: function () {
-        this.isJumping = false;
     },
 
     gainScore: function () {
@@ -129,18 +109,27 @@ cc.Class({
         this.scoreDisplay.string = 'Score: ' + this.score.toString();
     },
 
-    reset: function (pos) {
+    startMove: function (pos) {
         this.enabled = true;
-        this.xSpeed = 0;
-        this.jump();
-        this.node.setPosition(pos);
         this.resetScore();
+        this.xSpeed = 0;
+        this.node.setPosition(pos);
+        this.node._sgNode.runAction(this.jumpAction);
+    },
+
+    stopMove: function () {
+        this.node._sgNode.stopAllActions();
     },
 
     // called every frame
     update: function (dt) {
         // get current speed
-        this.xSpeed += this.speedDelta * dt;
+        if (this.accLeft) {
+            this.xSpeed -= this.accel * dt;
+        } else if (this.accRight) {
+            this.xSpeed += this.accel * dt;
+        }
+
         if ( Math.abs(this.xSpeed) > this.maxMoveSpeed ) {
             // if speed reach limit, use max speed with current direction
             this.xSpeed = this.maxMoveSpeed * this.xSpeed / Math.abs(this.xSpeed);

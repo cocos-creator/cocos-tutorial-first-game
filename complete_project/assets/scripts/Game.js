@@ -62,7 +62,7 @@ var Game = cc.Class({
         this.isRunning = true;
         this.btnNode.setPositionX(3000);
         this.gameOverNode.active = false;
-        this.player.reset(cc.p(0, this.groundY));
+        this.player.startMove(cc.p(0, this.groundY));
         this.spawnNewStar();
     },
 
@@ -111,6 +111,7 @@ var Game = cc.Class({
     gameOver: function () {
        this.gameOverNode.active = true;
        this.player.enabled = false;
+       this.player.stopMove();
        this.currentStar.destroy();
        this.isRunning = false;
        this.btnNode.setPositionX(0);
