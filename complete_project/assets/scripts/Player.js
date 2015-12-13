@@ -6,7 +6,6 @@ cc.Class({
         jumpDuration: 0,
         maxMoveSpeed: 0,
         accel: 0,
-        minDragDist: 0,
         scoreDisplay: {
             default: null,
             type: cc.ELabel
@@ -17,11 +16,13 @@ cc.Class({
     onLoad: function () {
         // variables to store player status
         this.xSpeed = 0;
+        // control input flags
         this.accLeft = false;
         this.accRight = false;
+        // screen boundaries
         this.minPosX = -this.node.parent.width/2;
         this.maxPosX = this.node.parent.width/2;
-        this.isJumping = false;
+        // player score
         this.score = 0;
 
         // set jump action
@@ -36,6 +37,7 @@ cc.Class({
         //add keyboard input listener to jump, turnLeft and turnRight
         cc.eventManager.addListener({
             event: cc.EventListener.KEYBOARD,
+            // set a flag when key pressed
             onKeyPressed: function(keyCode, event) {
                 switch(keyCode) {
                     case cc.KEY.a:
@@ -50,6 +52,7 @@ cc.Class({
                         break;
                 }
             },
+            // unset a flag when key released
             onKeyReleased: function(keyCode, event) {
                 switch(keyCode) {
                     case cc.KEY.a:
@@ -123,7 +126,8 @@ cc.Class({
 
     // called every frame
     update: function (dt) {
-        // get current speed
+        // get current speed with control flag
+        // player need to keep pressing to accelerate
         if (this.accLeft) {
             this.xSpeed -= this.accel * dt;
         } else if (this.accRight) {
@@ -135,8 +139,10 @@ cc.Class({
             this.xSpeed = this.maxMoveSpeed * this.xSpeed / Math.abs(this.xSpeed);
         }
 
+        // update player position
         this.node.x += this.xSpeed * dt;
 
+        // limit player position inside screen
         if ( this.node.x > this.maxPosX) {
             this.node.x = this.maxPosX;
             this.xSpeed = 0;

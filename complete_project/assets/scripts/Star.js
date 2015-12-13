@@ -19,8 +19,8 @@ cc.Class({
     getPlayerDistance: function () {
         // from star to player position
         var playerPos = this.game.player.getCenterPos();
-        var toPlayer = this.node.position.subSelf(playerPos);
-        var dist = toPlayer.mag();
+        var toPlayer = this.node.position.subSelf(playerPos); // cc.Vec2.subSelf
+        var dist = toPlayer.mag(); // cc.Vec2.mag
         return dist;
     },
 
@@ -38,6 +38,7 @@ cc.Class({
             return;
         }
 
+        // star fade out as timer goes
         var opacityRatio = 1 - this.game.timer/this.game.starDuration;
         var minOpacity = 50;
         this.node.opacity = minOpacity + Math.floor(opacityRatio * (255 - minOpacity));

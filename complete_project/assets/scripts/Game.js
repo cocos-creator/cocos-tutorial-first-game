@@ -24,8 +24,6 @@ var Game = cc.Class({
             default: null,
             type: cc.Node
         },
-        maxStarDuration: 0,
-        minStarDuration: 0,
         controlHintLabel: {
             default: null,
             type: cc.ELabel
@@ -37,7 +35,9 @@ var Game = cc.Class({
         touchHint: {
             default: '',
             multiline: true
-        }
+        },
+        maxStarDuration: 0,
+        minStarDuration: 0,
     },
 
     // use this for initialization
@@ -48,21 +48,28 @@ var Game = cc.Class({
         // store last star's x position
         this.currentStar = null;
         this.currentStarX = 0;
+
+        // star vanish timer
         this.timer = 0;
         this.starDuration = 0;
+
+        // is showing menu or running game
         this.isRunning = false;
 
-        // initialize control hint 
+        // initialize control hint
         var hintText = cc.sys.isMobile ? this.touchHint : this.keyboardHint;
         this.controlHintLabel.string = hintText;
     },
 
     onStartGame: function () {
-        // initialize star timer
+        // set game state to running
         this.isRunning = true;
+        // set button and gameover text out of screen
         this.btnNode.setPositionX(3000);
         this.gameOverNode.active = false;
+        // reset player position and move speed
         this.player.startMove(cc.p(0, this.groundY));
+        // spawn star
         this.spawnNewStar();
     },
 
@@ -70,7 +77,9 @@ var Game = cc.Class({
         var newStar = cc.instantiate(this.starPrefab);
         this.node.addChild(newStar);
         newStar.setPosition(this.getNewStarPosition());
+        // pass Game instance to star
         newStar.getComponent('Star').init(this);
+        // start star timer and store star reference
         this.startTimer();
         this.currentStar = newStar;
     },
@@ -82,6 +91,7 @@ var Game = cc.Class({
     },
 
     getNewStarPosition: function () {
+        // if there's no star, set a random x pos
         if (!this.currentStar) {
             this.currentStarX = cc.randomMinus1To1() * this.node.width/2;
         }
