@@ -38,6 +38,10 @@ cc.Class({
 
         // input management
         this.setInputControl();
+
+        // HACK: preload audio
+        cc.loader.load(this.jumpAudio);
+        cc.loader.load(this.scoreAudio);
     },
 
     setInputControl: function () {
@@ -156,11 +160,11 @@ cc.Class({
         this.node.x += this.xSpeed * dt;
 
         // limit player position inside screen
-        if ( this.node.x > this.maxPosX) {
-            this.node.x = this.maxPosX;
+        if ( this.node.x > this.node.parent.width/2) {
+            this.node.x = this.node.parent.width/2;
             this.xSpeed = 0;
-        } else if (this.node.x < this.minPosX) {
-            this.node.x = this.minPosX;
+        } else if (this.node.x < -this.node.parent.width/2) {
+            this.node.x = -this.node.parent.width/2;
             this.xSpeed = 0;
         }
     },
