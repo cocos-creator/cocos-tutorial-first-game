@@ -9,6 +9,14 @@ cc.Class({
         scoreDisplay: {
             default: null,
             type: cc.ELabel
+        },
+        jumpAudio: {
+            default: null,
+            url: cc.AudioClip
+        },
+        scoreAudio: {
+            default: null,
+            url: cc.AudioClip
         }
     },
 
@@ -93,8 +101,12 @@ cc.Class({
         // jump action
         var jumpUp = cc.moveBy(this.jumpDuration, cc.p(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
         var jumpDown = cc.moveBy(this.jumpDuration, cc.p(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
-        // var callback = cc.callFunc(this.onJumpEnd, this);
-        return cc.repeatForever(cc.sequence(jumpUp, jumpDown));
+        var callback = cc.callFunc(this.playJumpSound, this);
+        return cc.repeatForever(cc.sequence(jumpUp, jumpDown, callback));
+    },
+
+    playJumpSound: function () {
+        cc.audioEngine.playEffect(this.jumpAudio, false);
     },
 
     getCenterPos: function () {
@@ -105,6 +117,7 @@ cc.Class({
     gainScore: function () {
         this.score += 1;
         this.scoreDisplay.string = 'Score: ' + this.score.toString();
+        cc.audioEngine.playEffect(this.scoreAudio, false);
     },
 
     resetScore: function () {
