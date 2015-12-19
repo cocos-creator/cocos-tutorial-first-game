@@ -2,24 +2,29 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // 星星和主角之间的距离小于这个数值时，就会完成收集
-        pickRadius: 0
+        // 星星和主角之间的距离小于这个数值时，就会完成收集        
+        pickRadius: 0,
+    },
+
+    onLoad: function () {
+        this.enabled = false;
     },
 
     // use this for initialization
-    onLoad: function () {
-
+    init: function (game) {
+        this.game = game;
+        this.enabled = true;
+        this.node.opacity = 255;
     },
-    
-    
+
     getPlayerDistance: function () {
         // 根据 player 节点位置判断距离
-        var playerPos = this.game.player._sgNode.getPosition();
+        var playerPos = this.game.player.getCenterPos();
         // 根据两点位置计算两点之间距离
         var dist = cc.pDistance(this.node.position, playerPos); 
         return dist;
     },
-    
+
     onPicked: function() {
         // 当星星被收集时，调用 Game 脚本中的接口，生成一个新的星星
         this.game.spawnNewStar();
@@ -27,7 +32,7 @@ cc.Class({
         this.game.gainScore();
         // 然后销毁当前星星节点
         this.node.destroy();
-    },    
+    },
 
     // called every frame
     update: function (dt) {
