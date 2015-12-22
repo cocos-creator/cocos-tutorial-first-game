@@ -1,5 +1,5 @@
 {
-  "ver": "0",
+  "ver": "1.0.0",
   "uuid": "0f0d9bf9-c718-4ab0-bd20-f7a4bfe5909c",
   "type": "sprite",
   "wrapMode": "clamp",
@@ -12,6 +12,8 @@
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
       "trimX": 3,
       "trimY": 3,
       "width": 497,
