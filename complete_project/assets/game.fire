@@ -176,8 +176,6 @@
       "__uuid__": "5ae5fc98-59fc-46aa-a111-ea45a3736d35"
     },
     "_type": 0,
-    "_isFlippedX": false,
-    "_isFlippedY": false,
     "_useOriginalSize": false,
     "_atlas": null
   },
@@ -245,8 +243,6 @@
       "__uuid__": "c188fa09-0f19-43ca-8c04-e8084f91487b"
     },
     "_type": 0,
-    "_isFlippedX": false,
-    "_isFlippedY": false,
     "_useOriginalSize": false,
     "_atlas": null
   },
@@ -283,8 +279,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 18.295497922589163,
-      "y": -122.70456021111312
+      "x": 0,
+      "y": -120
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -317,8 +313,6 @@
       "__uuid__": "497db953-36a7-4ec7-923b-8c4575072061"
     },
     "_type": 0,
-    "_isFlippedX": false,
-    "_isFlippedY": false,
     "_useOriginalSize": true,
     "_atlas": null
   },
