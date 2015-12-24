@@ -14,9 +14,9 @@ cc.Class({
         jumpAudio: {
             default: null,
             url: cc.AudioClip
-        },        
+        },
     },
-    
+
     setJumpAction: function () {
         // 跳跃上升
         var jumpUp = cc.moveBy(this.jumpDuration, cc.p(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
@@ -31,8 +31,8 @@ cc.Class({
     playJumpSound: function () {
         // 调用声音引擎播放声音
         cc.audioEngine.playEffect(this.jumpAudio, false);
-    },    
-    
+    },
+
     setInputControl: function () {
         var self = this;
         //add keyboard input listener to jump, turnLeft and turnRight
@@ -62,21 +62,21 @@ cc.Class({
                         break;
                 }
             }
-        }, self);
+        }, self.node);
     },
 
     // use this for initialization
     onLoad: function () {
         // 初始化跳跃动作
         this.jumpAction = this.setJumpAction();
-        this.node._sgNode.runAction(this.jumpAction);
-        
+        this.node.runAction(this.jumpAction);
+
         // 加速度方向开关
         this.accLeft = false;
         this.accRight = false;
         // 主角当前水平方向速度
         this.xSpeed = 0;
-        
+
         // 初始化键盘输入监听
         this.setInputControl();
     },

@@ -14,7 +14,7 @@ cc.Class({
         jumpAudio: {
             default: null,
             url: cc.AudioClip
-        },  
+        },
     },
 
     // use this for initialization
@@ -69,7 +69,7 @@ cc.Class({
                         break;
                 }
             }
-        }, self);
+        }, self.node);
 
         // touch input
         cc.eventManager.addListener({
@@ -90,27 +90,27 @@ cc.Class({
                 self.accLeft = false;
                 self.accRight = false;
             }
-        }, self);
+        }, self.node);
     },
 
     setJumpAction: function () {
         // 跳跃上升
         var jumpUp = cc.moveBy(this.jumpDuration, cc.p(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
-        // 下落        
+        // 下落
         var jumpDown = cc.moveBy(this.jumpDuration, cc.p(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
-        // 添加一个回调函数，用于在动作结束时调用我们定义的其他方法        
+        // 添加一个回调函数，用于在动作结束时调用我们定义的其他方法
         var callback = cc.callFunc(this.playJumpSound, this);
-        // 不断重复，而且每次完成落地动作后调用回调来播放声音        
+        // 不断重复，而且每次完成落地动作后调用回调来播放声音
         return cc.repeatForever(cc.sequence(jumpUp, jumpDown, callback));
     },
 
     playJumpSound: function () {
-        // 调用声音引擎播放声音        
+        // 调用声音引擎播放声音
         cc.audioEngine.playEffect(this.jumpAudio, false);
     },
 
     getCenterPos: function () {
-        var centerPos = cc.p(this.node._sgNode.x, this.node._sgNode.y + this.node.height/2);
+        var centerPos = cc.p(this.node.x, this.node.y + this.node.height/2);
         return centerPos;
     },
 
@@ -118,11 +118,11 @@ cc.Class({
         this.enabled = true;
         this.xSpeed = 0;
         this.node.setPosition(pos);
-        this.node._sgNode.runAction(this.jumpAction);
+        this.node.runAction(this.jumpAction);
     },
 
     stopMove: function () {
-        this.node._sgNode.stopAllActions();
+        this.node.stopAllActions();
     },
 
     // called every frame
