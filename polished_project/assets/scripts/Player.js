@@ -6,6 +6,8 @@ cc.Class({
         jumpHeight: 0,
         // 主角跳跃持续时间
         jumpDuration: 0,
+        // 辅助形变动作时间
+        squashDuration: 0,
         // 最大移动速度
         maxMoveSpeed: 0,
         // 加速度
@@ -98,10 +100,14 @@ cc.Class({
         var jumpUp = cc.moveBy(this.jumpDuration, cc.p(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
         // 下落
         var jumpDown = cc.moveBy(this.jumpDuration, cc.p(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
+        // 形变
+        var squash = cc.scaleTo(this.squashDuration, 1, 0.6);
+        var stretch = cc.scaleTo(this.squashDuration, 1, 1.2);
+        var scaleBack = cc.scaleTo(this.squashDuration, 1, 1);
         // 添加一个回调函数，用于在动作结束时调用我们定义的其他方法
         var callback = cc.callFunc(this.playJumpSound, this);
         // 不断重复，而且每次完成落地动作后调用回调来播放声音
-        return cc.repeatForever(cc.sequence(jumpUp, jumpDown, callback));
+        return cc.repeatForever(cc.sequence(squash, stretch, jumpUp, scaleBack, jumpDown, callback));
     },
 
     playJumpSound: function () {

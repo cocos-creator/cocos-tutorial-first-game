@@ -344,6 +344,7 @@
     "_enabled": true,
     "jumpHeight": 180,
     "jumpDuration": 0.3,
+    "squashDuration": 0.1,
     "maxMoveSpeed": 550,
     "accel": 450,
     "jumpAudio": {
