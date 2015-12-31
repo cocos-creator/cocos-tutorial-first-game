@@ -1,4 +1,6 @@
 const Player = require('Player');
+const ScoreFX = require('ScoreFX');
+const Star = require('Star');
 
 var Game = cc.Class({
     extends: cc.Component,
@@ -6,6 +8,10 @@ var Game = cc.Class({
     properties: {
         // 这个属性引用了星星预制资源
         starPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        scoreFXPrefab: {
             default: null,
             type: cc.Prefab
         },
@@ -90,11 +96,16 @@ var Game = cc.Class({
     },
 
     spawnNewStar: function() {
-        // 使用给定的模板在场景中生成一个新节点        
-        var newStar = cc.instantiate(this.starPrefab);
-        // 将新增的节点添加到 Canvas 节点下面        
+        var newStar = null;
+        // 使用给定的模板在场景中生成一个新节点
+        if (cc.pool.hasObject(Star)) {
+            newStar = cc.pool.getFromPool(Star).node;
+        } else {
+            newStar = cc.instantiate(this.starPrefab);
+        }
+        // 将新增的节点添加到 Canvas 节点下面
         this.node.addChild(newStar);
-        // 为星星设置一个随机位置        
+        // 为星星设置一个随机位置
         newStar.setPosition(this.getNewStarPosition());
         // pass Game instance to star
         newStar.getComponent('Star').init(this);
@@ -115,9 +126,9 @@ var Game = cc.Class({
             this.currentStarX = cc.randomMinus1To1() * this.node.width/2;
         }
         var randX = 0;
-        // 根据地平面位置和主角跳跃高度，随机得到一个星星的 y 坐标        
+        // 根据地平面位置和主角跳跃高度，随机得到一个星星的 y 坐标
         var randY = this.groundY + cc.random0To1() * this.player.jumpHeight + 50;
-        // 根据屏幕宽度和上一个星星的 x 坐标，随机得到一个新生成星星 x 坐标        
+        // 根据屏幕宽度和上一个星星的 x 坐标，随机得到一个新生成星星 x 坐标
         var maxX = this.node.width/2;
         if (this.currentStarX >= 0) {
             randX = -cc.random0To1() * maxX;
@@ -125,14 +136,19 @@ var Game = cc.Class({
             randX = cc.random0To1() * maxX;
         }
         this.currentStarX = randX;
-        // 返回星星坐标        
+        // 返回星星坐标
         return cc.p(randX, randY);
     },
 
-    gainScore: function () {
+    gainScore: function (pos) {
         this.score += 1;
         // 更新 scoreDisplay Label 的文字
         this.scoreDisplay.string = 'Score: ' + this.score.toString();
+        // 播放特效
+        var fx = this.spawnScoreFX();
+        this.node.addChild(fx.node);
+        fx.node.setPosition(pos);
+        fx.play();
         // 播放得分音效
         cc.audioEngine.playEffect(this.scoreAudio, false);
     },
@@ -140,7 +156,17 @@ var Game = cc.Class({
     resetScore: function () {
         this.score = 0;
         this.scoreDisplay.string = 'Score: ' + this.score.toString();
-    },    
+    },
+
+    spawnScoreFX: function () {
+        if (cc.pool.hasObject(ScoreFX)) {
+            fx = cc.pool.getFromPool(ScoreFX);
+            return fx;
+        } else {
+            fx = cc.instantiate(this.scoreFXPrefab);
+            return fx.getComponent('ScoreFX');
+        }
+    },
 
     // called every frame
     update: function (dt) {
