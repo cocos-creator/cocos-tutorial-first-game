@@ -575,14 +575,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_fontSize": 40,
+    "_fontSize": 28,
     "_lineHeight": 40,
     "_enableWrapText": false,
     "_isSystemFontUsed": true,
     "_N$string": "在星星消失前拾取他们，获得分数！",
-    "_N$horizontalAlign": 2,
+    "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$overflow": 1
+    "_N$overflow": 0
   },
   {
     "__type__": "cc.Widget",
