@@ -6,7 +6,7 @@
   "filterMode": "bilinear",
   "subMetas": {
     "PurpleMonster": {
-      "ver": 0,
+      "ver": "1.0.2",
       "uuid": "260baa45-d737-409a-b9dd-8a412006c00f",
       "rawTextureUuid": "20a949c1-6ec4-4641-85d0-e1d05bc5d358",
       "trimType": "auto",

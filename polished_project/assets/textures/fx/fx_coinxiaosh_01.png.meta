@@ -6,13 +6,13 @@
   "filterMode": "bilinear",
   "subMetas": {
     "fx_coinxiaosh_01": {
-      "ver": "1.0.0",
+      "ver": "1.0.2",
       "uuid": "520729dd-f230-4380-a337-824937834d45",
       "rawTextureUuid": "95e8f80f-c673-41f0-a95f-b2086073abaa",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
-      "offsetX": 0,
+      "offsetX": 1.5,
       "offsetY": 0,
       "trimX": 7,
       "trimY": 3,

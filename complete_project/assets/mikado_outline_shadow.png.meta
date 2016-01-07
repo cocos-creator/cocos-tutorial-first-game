@@ -6,14 +6,14 @@
   "filterMode": "bilinear",
   "subMetas": {
     "mikado_outline_shadow": {
-      "ver": "0",
+      "ver": "1.0.2",
       "uuid": "4f350cc3-5c51-4724-8e3c-2b3663fe7512",
       "rawTextureUuid": "0f0d9bf9-c718-4ab0-bd20-f7a4bfe5909c",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
-      "offsetX": 0,
-      "offsetY": 0,
+      "offsetX": -4.5,
+      "offsetY": 9,
       "trimX": 3,
       "trimY": 3,
       "width": 497,
