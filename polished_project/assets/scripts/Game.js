@@ -159,6 +159,7 @@ var Game = cc.Class({
     },
 
     spawnScoreFX: function () {
+        var fx;
         if (cc.pool.hasObject(ScoreFX)) {
             fx = cc.pool.getFromPool(ScoreFX);
             return fx;

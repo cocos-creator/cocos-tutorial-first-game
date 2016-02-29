@@ -39,7 +39,6 @@
     ],
     "_localZOrder": 0,
     "_globalZOrder": 0,
-    "_ignoreAnchorPointForPosition": false,
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "0b9c76e0-2054-4eea-a6d9-040d0aa037f0"
@@ -109,7 +108,6 @@
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
-    "_ignoreAnchorPointForPosition": false,
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "14010LawrVHaq2tHIX8vVL3",
@@ -164,7 +162,6 @@
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
-    "_ignoreAnchorPointForPosition": false,
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "60b27qxAypIvZpPQ9EdeO5w",
@@ -189,6 +186,16 @@
     },
     "_type": 0,
     "_useOriginalSize": true,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
     "_atlas": null
   },
   {
@@ -231,7 +238,6 @@
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
-    "_ignoreAnchorPointForPosition": false,
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "1b31e2Bmb1DrLTv6HyH4SpL",
@@ -304,7 +310,6 @@
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
-    "_ignoreAnchorPointForPosition": false,
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "e8ac7B8gbxOR7JCQH4YywzT",
@@ -332,6 +337,16 @@
     },
     "_type": 0,
     "_useOriginalSize": true,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
     "_atlas": null
   },
   {
@@ -391,7 +406,6 @@
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
-    "_ignoreAnchorPointForPosition": false,
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "c79f1ZfF5hB5JCrVl3bs9rd",
@@ -416,6 +430,16 @@
     },
     "_type": 0,
     "_useOriginalSize": false,
+    "_sizeMode": 0,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
     "_atlas": null
   },
   {
@@ -441,8 +465,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 348,
-      "height": 125
+      "width": 171.6650390625,
+      "height": 80
     },
     "_children": [],
     "_rotationX": 0,
@@ -451,14 +475,13 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 280,
-      "y": -240
+      "x": 368.16748046875,
+      "y": -262.5
     },
     "_skewX": 0,
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
-    "_ignoreAnchorPointForPosition": false,
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "e695bZadwZI057rJMQzbY9Z",
@@ -535,7 +558,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 480,
-      "height": 149
+      "height": 40
     },
     "_children": [],
     "_rotationX": 0,
@@ -551,7 +574,6 @@
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
-    "_ignoreAnchorPointForPosition": false,
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "d09482LXBNJtK4EovpK1jkv",
@@ -644,7 +666,6 @@
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
-    "_ignoreAnchorPointForPosition": false,
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "fdc16wBOehHRI68po590yXC",
@@ -672,6 +693,16 @@
     },
     "_type": 0,
     "_useOriginalSize": true,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
     "_atlas": null
   },
   {
@@ -774,7 +805,6 @@
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
-    "_ignoreAnchorPointForPosition": false,
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "3ccc6IBLqxEqZPymVPrWk/w",
@@ -810,7 +840,7 @@
   {
     "__type__": "cc.Canvas",
     "_name": "",
-    "_objFlags": 0,
+    "_objFlags": 1835008,
     "node": {
       "__id__": 2
     },

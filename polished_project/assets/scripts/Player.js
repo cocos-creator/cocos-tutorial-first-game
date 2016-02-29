@@ -124,7 +124,7 @@ cc.Class({
         this.enabled = true;
         this.xSpeed = 0;
         this.node.setPosition(pos);
-        this.node.runAction(this.jumpAction);
+        this.node.runAction(this.setJumpAction());
     },
 
     stopMove: function () {
