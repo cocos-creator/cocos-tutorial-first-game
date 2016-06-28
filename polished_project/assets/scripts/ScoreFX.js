@@ -8,7 +8,16 @@ cc.Class({
         }
     },
 
+    init (game) {
+        this.game = game;
+        this.anim.getComponent('ScoreAnim').init(this);
+    },
+
+    despawn () {
+        this.game.despawnScoreFX(this.node);
+    },
+
     play: function () {
         this.anim.play('score_pop');
-    },
+    }
 });

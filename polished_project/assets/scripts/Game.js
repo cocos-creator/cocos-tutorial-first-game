@@ -79,6 +79,10 @@ var Game = cc.Class({
         // initialize control hint
         var hintText = cc.sys.isMobile ? this.touchHint : this.keyboardHint;
         this.controlHintLabel.string = hintText;
+
+        // initialize star and score pool
+        this.starPool = new cc.NodePool('Star');
+        this.scorePool = new cc.NodePool('ScoreFX');
     },
 
     onStartGame: function () {
@@ -98,8 +102,8 @@ var Game = cc.Class({
     spawnNewStar: function() {
         var newStar = null;
         // 使用给定的模板在场景中生成一个新节点
-        if (cc.pool.hasObject(Star)) {
-            newStar = cc.pool.getFromPool(Star).node;
+        if (this.starPool.size() > 0) {
+            newStar = this.starPool.get(this); // this will be passed to Star's reuse method
         } else {
             newStar = cc.instantiate(this.starPrefab);
         }
@@ -112,6 +116,11 @@ var Game = cc.Class({
         // start star timer and store star reference
         this.startTimer();
         this.currentStar = newStar;
+    },
+
+    despawnStar (star) {
+        this.starPool.put(star);
+        this.spawnNewStar();
     },
 
     startTimer: function () {
@@ -160,13 +169,18 @@ var Game = cc.Class({
 
     spawnScoreFX: function () {
         var fx;
-        if (cc.pool.hasObject(ScoreFX)) {
-            fx = cc.pool.getFromPool(ScoreFX);
-            return fx;
-        } else {
-            fx = cc.instantiate(this.scoreFXPrefab);
+        if (this.scorePool.size() > 0) {
+            fx = this.scorePool.get();
             return fx.getComponent('ScoreFX');
+        } else {
+            fx = cc.instantiate(this.scoreFXPrefab).getComponent('ScoreFX');
+            fx.init(this);
+            return fx;
         }
+    },
+
+    despawnScoreFX (scoreFX) {
+        this.scorePool.put(scoreFX);
     },
 
     // called every frame

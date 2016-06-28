@@ -17,6 +17,10 @@ cc.Class({
         this.node.opacity = 255;
     },
 
+    reuse (game) {
+        this.init(game);
+    },
+
     getPlayerDistance: function () {
         // 根据 player 节点位置判断距离
         var playerPos = this.game.player.getCenterPos();
@@ -27,13 +31,10 @@ cc.Class({
 
     onPicked: function() {
         var pos = this.node.getPosition();
-        // 当星星被收集时，调用 Game 脚本中的接口，生成一个新的星星
-        this.game.spawnNewStar();
         // 调用 Game 脚本的得分方法
         this.game.gainScore(pos);
-        // 然后销毁当前星星节点
-        this.node.removeFromParent();
-        cc.pool.putInPool(this);
+        // 当星星被收集时，调用 Game 脚本中的接口，销毁当前星星节点，生成一个新的星星
+        this.game.despawnStar(this.node);
     },
 
     // called every frame

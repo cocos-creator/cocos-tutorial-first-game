@@ -6,7 +6,7 @@
   "filterMode": "bilinear",
   "subMetas": {
     "fx_coinxiaosh_02": {
-      "ver": "1.0.2",
+      "ver": "1.0.3",
       "uuid": "8da41f75-bb51-4ce3-8612-c030112730b1",
       "rawTextureUuid": "3288de19-973d-4800-837f-ee3cb9395c42",
       "trimType": "auto",
@@ -18,6 +18,8 @@
       "trimY": 3,
       "width": 72,
       "height": 74,
+      "rawWidth": 80,
+      "rawHeight": 80,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,
