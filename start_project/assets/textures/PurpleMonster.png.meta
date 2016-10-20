@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "a19f2dcf-0f50-4268-b3a0-bbdc1492fb16",
+  "uuid": "c6b5fd13-6a7f-4187-8716-1189e5d13c27",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "ground": {
+    "PurpleMonster": {
       "ver": "1.0.3",
-      "uuid": "c188fa09-0f19-43ca-8c04-e8084f91487b",
-      "rawTextureUuid": "a19f2dcf-0f50-4268-b3a0-bbdc1492fb16",
+      "uuid": "a7d32fc1-4a29-491e-a5e2-0892063d35d0",
+      "rawTextureUuid": "c6b5fd13-6a7f-4187-8716-1189e5d13c27",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 256,
-      "height": 256,
-      "rawWidth": 256,
-      "rawHeight": 256,
+      "width": 78,
+      "height": 67,
+      "rawWidth": 78,
+      "rawHeight": 67,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,
