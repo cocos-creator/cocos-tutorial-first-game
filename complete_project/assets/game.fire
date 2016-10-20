@@ -140,7 +140,7 @@
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 2,
+    "_scaleX": 2.5,
     "_scaleY": 2,
     "_position": {
       "__type__": "cc.Vec2",
@@ -212,7 +212,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
+      "width": 1332,
       "height": 256
     },
     "_children": [],
