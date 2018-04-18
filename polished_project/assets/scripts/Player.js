@@ -14,8 +14,8 @@ cc.Class({
         accel: 0,
         // 跳跃音效资源
         jumpAudio: {
+            type: cc.AudioClip,
             default: null,
-            url: cc.AudioClip
         },
     },
 
@@ -35,71 +35,77 @@ cc.Class({
         this.jumpAction = this.setJumpAction();
 
         // 初始化键盘输入监听
-        this.setInputControl();
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+        
+        var touchReceiver = cc.Canvas.instance.node;
+        touchReceiver.on('touchstart', this.onTouchStart, this);
+        touchReceiver.on('touchend', this.onTouchEnd, this);
+    },
+
+    onDestroy () {
+        // 取消键盘输入监听
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+        
+        var touchReceiver = cc.Canvas.instance.node;
+        touchReceiver.off('touchstart', this.onTouchStart, this);
+        touchReceiver.off('touchend', this.onTouchEnd, this);
+    },
+
+    onKeyDown (event) {
+        switch(event.keyCode) {
+            case cc.macro.KEY.a:
+            case cc.macro.KEY.left:
+                this.accLeft = true;
+                this.accRight = false;
+                break;
+            case cc.macro.KEY.d:
+            case cc.macro.KEY.right:
+                this.accLeft = false;
+                this.accRight = true;
+                break;
+        }
+    },
+
+    onKeyUp (event) {
+        switch(event.keyCode) {
+            case cc.macro.KEY.a:
+            case cc.macro.KEY.left:
+                this.accLeft = false;
+                break;
+            case cc.macro.KEY.d:
+            case cc.macro.KEY.right:
+                this.accRight = false;
+                break;
+        }
+    },
+
+    onTouchStart (event) {
+        var touchLoc = event.getLocation();
+        if (touchLoc.x >= cc.winSize.width/2) {
+            this.accLeft = false;
+            this.accRight = true;
+        } else {
+            this.accLeft = true;
+            this.accRight = false;
+        }
+    },
+
+    onTouchEnd (event) {
+        this.accLeft = false;
+        this.accRight = false;
     },
 
     setInputControl: function () {
-        var self = this;
-        //add keyboard input listener to jump, turnLeft and turnRight
-        cc.eventManager.addListener({
-            event: cc.EventListener.KEYBOARD,
-            // set a flag when key pressed
-            onKeyPressed: function(keyCode, event) {
-                switch(keyCode) {
-                    case cc.KEY.a:
-                    case cc.KEY.left:
-                        self.accLeft = true;
-                        self.accRight = false;
-                        break;
-                    case cc.KEY.d:
-                    case cc.KEY.right:
-                        self.accLeft = false;
-                        self.accRight = true;
-                        break;
-                }
-            },
-            // unset a flag when key released
-            onKeyReleased: function(keyCode, event) {
-                switch(keyCode) {
-                    case cc.KEY.a:
-                    case cc.KEY.left:
-                        self.accLeft = false;
-                        break;
-                    case cc.KEY.d:
-                    case cc.KEY.right:
-                        self.accRight = false;
-                        break;
-                }
-            }
-        }, self.node);
-
-        // touch input
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            onTouchBegan: function(touch, event) {
-                var touchLoc = touch.getLocation();
-                if (touchLoc.x >= cc.winSize.width/2) {
-                    self.accLeft = false;
-                    self.accRight = true;
-                } else {
-                    self.accLeft = true;
-                    self.accRight = false;
-                }
-                // don't capture the event
-                return true;
-            },
-            onTouchEnded: function(touch, event) {
-                self.accLeft = false;
-                self.accRight = false;
-            }
-        }, self.node);
+        
     },
 
     setJumpAction: function () {
         // 跳跃上升
-        var jumpUp = cc.moveBy(this.jumpDuration, cc.p(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
+        var jumpUp = cc.moveBy(this.jumpDuration, cc.v2(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
         // 下落
-        var jumpDown = cc.moveBy(this.jumpDuration, cc.p(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
+        var jumpDown = cc.moveBy(this.jumpDuration, cc.v2(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
         // 形变
         var squash = cc.scaleTo(this.squashDuration, 1, 0.6);
         var stretch = cc.scaleTo(this.squashDuration, 1, 1.2);
@@ -116,7 +122,7 @@ cc.Class({
     },
 
     getCenterPos: function () {
-        var centerPos = cc.p(this.node.x, this.node.y + this.node.height/2);
+        var centerPos = cc.v2(this.node.x, this.node.y + this.node.height/2);
         return centerPos;
     },
 
