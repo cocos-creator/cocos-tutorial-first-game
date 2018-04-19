@@ -1,16 +1,5 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 cc.Class({
     extends: cc.Component,
-// Star.js
     properties: {
         // 星星和主角之间的距离小于这个数值时，就会完成收集
         pickRadius: 0,
@@ -25,7 +14,6 @@ cc.Class({
 
     // onLoad () {},
 
-// Star.js
     getPlayerDistance: function () {
         // 根据 player 节点位置判断距离
         var playerPos = this.game.player.getPosition();
@@ -47,7 +35,6 @@ cc.Class({
 
     },
 
-// Star.js
     update: function (dt) {
         // 每帧判断和主角之间的距离是否小于收集距离
         if (this.getPlayerDistance() < this.pickRadius) {

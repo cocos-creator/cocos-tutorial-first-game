@@ -97,10 +97,6 @@ cc.Class({
         this.accRight = false;
     },
 
-    setInputControl: function () {
-        
-    },
-
     setJumpAction: function () {
         // 跳跃上升
         var jumpUp = cc.moveBy(this.jumpDuration, cc.v2(0, this.jumpHeight)).easing(cc.easeCubicActionOut());

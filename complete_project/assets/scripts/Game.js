@@ -1,16 +1,5 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 cc.Class({
     extends: cc.Component,
-// Game.js
     properties: {
         // 这个属性引用了星星预制资源
         starPrefab: {
@@ -44,7 +33,6 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-// Game.js
     onLoad: function () {
         // 获取地平面的 y 轴坐标
         this.groundY = this.ground.y + this.ground.height/2;
@@ -82,22 +70,16 @@ cc.Class({
         return cc.v2(randX, randY);
     },
 
-    start () {
-
+   update: function (dt) {
+        // 每帧更新计时器，超过限度还没有生成新的星星
+        // 就会调用游戏失败逻辑
+        if (this.timer > this.starDuration) {
+            this.gameOver();
+            return;
+        }
+        this.timer += dt;
     },
 
-// Game.js
-   update: function (dt) {
-    // 每帧更新计时器，超过限度还没有生成新的星星
-    // 就会调用游戏失败逻辑
-    if (this.timer > this.starDuration) {
-        this.gameOver();
-        return;
-    }
-    this.timer += dt;
-},
-
-// Game.js
     gainScore: function () {
         this.score += 1;
         // 更新 scoreDisplay Label 的文字
@@ -106,7 +88,6 @@ cc.Class({
         cc.audioEngine.playEffect(this.scoreAudio, false);
     },
 
-// Game.js
     gameOver: function () {
         this.player.stopAllActions(); //停止 player 节点的跳跃动作
         cc.director.loadScene('game');
