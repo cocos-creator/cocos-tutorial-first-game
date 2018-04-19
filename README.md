@@ -1,2 +1,2 @@
-# first-game
-Quick start game for Fireball
+
+Quick start game for Cocos Creator

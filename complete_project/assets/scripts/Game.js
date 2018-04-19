@@ -55,17 +55,17 @@ cc.Class({
         // 将 Game 组件的实例传入星星组件
         newStar.getComponent('Star').game = this;
         // 重置计时器
-        this.starDuration = this.minStarDuration + cc.random0To1() * (this.maxStarDuration - this.minStarDuration);
+        this.starDuration = this.minStarDuration + Math.random() * (this.maxStarDuration - this.minStarDuration);
         this.timer = 0;
     },
 
     getNewStarPosition: function () {
         var randX = 0;
         // 根据地平面位置和主角跳跃高度，随机得到一个星星的 y 坐标
-        var randY = this.groundY + cc.random0To1() * this.player.getComponent('Player').jumpHeight + 50;
+        var randY = this.groundY + Math.random() * this.player.getComponent('Player').jumpHeight + 50;
         // 根据屏幕宽度，随机得到一个星星 x 坐标
         var maxX = this.node.width/2;
-        randX = cc.randomMinus1To1() * maxX;
+        randX = (Math.random() - 0.5) * 2 * maxX;
         // 返回星星坐标
         return cc.p(randX, randY);
     },
@@ -76,6 +76,7 @@ cc.Class({
         // 就会调用游戏失败逻辑
         if (this.timer > this.starDuration) {
             this.gameOver();
+            this.enabled = false;   // disable gameOver logic to avoid load scene repeatedly
             return;
         }
         this.timer += dt;
