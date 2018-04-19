@@ -1,5 +1,6 @@
 cc.Class({
     extends: cc.Component,
+    
     properties: {
         // 星星和主角之间的距离小于这个数值时，就会完成收集
         pickRadius: 0,
@@ -9,10 +10,6 @@ cc.Class({
             serializable: false
         }
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
 
     getPlayerDistance: function () {
         // 根据 player 节点位置判断距离
@@ -29,10 +26,6 @@ cc.Class({
         this.game.gainScore();
         // 然后销毁当前星星节点
         this.node.destroy();
-    },
-    
-    start () {
-
     },
 
     update: function (dt) {

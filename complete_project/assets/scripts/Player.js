@@ -1,6 +1,6 @@
 cc.Class({
     extends: cc.Component,
-    // Player.js
+    
     properties: {
         // 主角跳跃高度
         jumpHeight: 0,
@@ -56,8 +56,6 @@ cc.Class({
                 break;
         }
     },
-
-    // LIFE-CYCLE CALLBACKS:
 
     onLoad: function() {
         // 初始化跳跃动作

@@ -14,8 +14,8 @@ cc.Class({
         accel: 0,
         // 跳跃音效资源
         jumpAudio: {
-            type: cc.AudioClip,
             default: null,
+            type: cc.AudioClip
         },
     },
 

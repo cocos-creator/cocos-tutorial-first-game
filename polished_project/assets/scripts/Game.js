@@ -35,8 +35,8 @@ var Game = cc.Class({
         },
         // 得分音效资源
         scoreAudio: {
-            type: cc.AudioClip,
             default: null,
+            type: cc.AudioClip
         },
         btnNode: {
             default: null,
@@ -196,10 +196,10 @@ var Game = cc.Class({
     },
 
     gameOver: function () {
-       this.gameOverNode.active = true;
-       this.player.enabled = false;
-       this.player.stopMove();
-       this.currentStar.destroy();
-       this.btnNode.x = 0;
+        this.gameOverNode.active = true;
+        this.player.enabled = false;
+        this.player.stopMove();
+        this.currentStar.destroy();
+        this.btnNode.x = 0;
     }
 });
