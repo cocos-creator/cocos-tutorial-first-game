@@ -74,6 +74,7 @@ cc.Class({
         // 就会调用游戏失败逻辑
         if (this.timer > this.starDuration) {
             this.gameOver();
+            this.enabled = false;   // disable gameOver logic to avoid load scene repeatedly
             return;
         }
         this.timer += dt;
