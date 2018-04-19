@@ -28,11 +28,10 @@ cc.Class({
         // 得分音效资源
         scoreAudio: {
             default: null,
-            url: cc.AudioClip
+            type: cc.AudioClip
         }
     },
 
-    // use this for initialization
     onLoad: function () {
         // 获取地平面的 y 轴坐标
         this.groundY = this.ground.y + this.ground.height/2;
@@ -54,7 +53,7 @@ cc.Class({
         newStar.setPosition(this.getNewStarPosition());
         // 将 Game 组件的实例传入星星组件
         newStar.getComponent('Star').game = this;
-        // 重置计时器
+        // 重置计时器，根据消失时间范围随机取一个值
         this.starDuration = this.minStarDuration + Math.random() * (this.maxStarDuration - this.minStarDuration);
         this.timer = 0;
     },
@@ -67,10 +66,9 @@ cc.Class({
         var maxX = this.node.width/2;
         randX = (Math.random() - 0.5) * 2 * maxX;
         // 返回星星坐标
-        return cc.p(randX, randY);
+        return cc.v2(randX, randY);
     },
 
-    // called every frame
     update: function (dt) {
         // 每帧更新计时器，超过限度还没有生成新的星星
         // 就会调用游戏失败逻辑
@@ -85,7 +83,7 @@ cc.Class({
     gainScore: function () {
         this.score += 1;
         // 更新 scoreDisplay Label 的文字
-        this.scoreDisplay.string = 'Score: ' + this.score.toString();
+        this.scoreDisplay.string = 'Score: ' + this.score;
         // 播放得分音效
         cc.audioEngine.playEffect(this.scoreAudio, false);
     },

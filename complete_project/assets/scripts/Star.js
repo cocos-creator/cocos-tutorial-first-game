@@ -1,6 +1,6 @@
 cc.Class({
     extends: cc.Component,
-
+    
     properties: {
         // 星星和主角之间的距离小于这个数值时，就会完成收集
         pickRadius: 0,
@@ -10,12 +10,6 @@ cc.Class({
             serializable: false
         }
     },
-
-    // use this for initialization
-    onLoad: function () {
-
-    },
-
 
     getPlayerDistance: function () {
         // 根据 player 节点位置判断距离
@@ -34,7 +28,6 @@ cc.Class({
         this.node.destroy();
     },
 
-    // called every frame
     update: function (dt) {
         // 每帧判断和主角之间的距离是否小于收集距离
         if (this.getPlayerDistance() < this.pickRadius) {
@@ -42,6 +35,7 @@ cc.Class({
             this.onPicked();
             return;
         }
+        
         // 根据 Game 脚本中的计时器更新星星的透明度
         var opacityRatio = 1 - this.game.timer/this.game.starDuration;
         var minOpacity = 50;

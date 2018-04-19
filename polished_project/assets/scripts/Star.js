@@ -30,7 +30,7 @@ cc.Class({
         // 根据 player 节点位置判断距离
         var playerPos = this.game.player.getCenterPos();
         // 根据两点位置计算两点之间距离
-        var dist = cc.pDistance(this.node.position, playerPos);
+        var dist = this.node.position.sub(playerPos).mag();
         return dist;
     },
 
