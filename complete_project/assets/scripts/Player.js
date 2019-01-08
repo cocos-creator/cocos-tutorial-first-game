@@ -36,10 +36,10 @@ cc.Class({
     onKeyDown (event) {
         // set a flag when key pressed
         switch(event.keyCode) {
-            case cc.macro.KEY.a:
+            case cc.KEY.a:
                 this.accLeft = true;
                 break;
-            case cc.macro.KEY.d:
+            case cc.KEY.d:
                 this.accRight = true;
                 break;
         }
@@ -48,10 +48,10 @@ cc.Class({
     onKeyUp (event) {
         // unset a flag when key released
         switch(event.keyCode) {
-            case cc.macro.KEY.a:
+            case cc.KEY.a:
                 this.accLeft = false;
                 break;
-            case cc.macro.KEY.d:
+            case cc.KEY.d:
                 this.accRight = false;
                 break;
         }

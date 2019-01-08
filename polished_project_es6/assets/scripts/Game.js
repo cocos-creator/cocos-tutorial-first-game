@@ -38,7 +38,9 @@ export default class NewScript extends cc.Component {
     scoreDisplay = null;
     
     // 得分音效资源
-    @property(cc.AudioClip)
+    @property({
+        type: cc.AudioClip
+    })
     scoreAudio = null;
         
     @property(cc.Node)

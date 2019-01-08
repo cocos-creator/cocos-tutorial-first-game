@@ -14,14 +14,10 @@ export default class NewScript extends cc.Component {
     scoreFXPrefab: cc.Prefab = null;
             
     // 星星产生后消失时间的随机范围
-    @property({
-        default: 0
-    })
-    maxStarDuration: number = 0;
-    @property({
-        default: 0
-    })
-    minStarDuration: number = 0;
+    @property(Number)
+    public maxStarDuration: Number = 0;
+    @property(Number)
+    public minStarDuration: Number = 0;
 
     // 地面节点，用于确定星星生成的高度
     @property(cc.Node)
@@ -39,9 +35,11 @@ export default class NewScript extends cc.Component {
     scoreDisplay: cc.Label = null;
     
     // 得分音效资源
-    @property(cc.AudioClip)
+    @property({
+        type: cc.AudioClip
+    })
     scoreAudio: cc.AudioClip = null;
-        
+
     @property(cc.Node)
     btnNode: cc.Node = null;
     
@@ -63,6 +61,15 @@ export default class NewScript extends cc.Component {
 
     groundY = 0;
 
+    // private
+    private currentStar: cc.Node = null;
+    private currentStarX: number = 0;
+    private timer: number = 0;
+    private starDuration: number = 0;
+    private isRunning: boolean = false;
+    private starPool: cc.NodePool = null;
+    private scorePool: cc.NodePool = null;
+    private score: number = 0;
     // use this for initialization
     onLoad () {
         // 获取地平面的 y 轴坐标
