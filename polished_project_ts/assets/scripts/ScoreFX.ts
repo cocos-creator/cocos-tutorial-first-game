@@ -2,8 +2,11 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class NewScript extends cc.Component {
-    @property(cc.Animation)
+    @property({
+        type: cc.Animation
+    })
     anim = null;
+    game = null;
 
     init (game) {
         this.game = game;
