@@ -3,10 +3,8 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewScript extends cc.Component {
     // 星星和主角之间的距离小于这个数值时，就会完成收集
-    @property({
-        default: 0
-    })
-    pickRadius = 0;
+    @property(Number)
+    public pickRadius: number = 0;
     
     // 暂存 Game 对象的引用
     game = null;

@@ -19,8 +19,10 @@ export default class NewScript extends cc.Component {
     @property
     accel = 0;
     // 跳跃音效资源
-    @property(cc.AudioClip)
-    jumpAudio = '';
+    @property({
+        type: cc.AudioClip
+    })
+    jumpAudio = null;
 
     // use this for initialization
     onLoad () {

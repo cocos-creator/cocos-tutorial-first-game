@@ -4,49 +4,35 @@ const {ccclass, property} = cc._decorator;
 export default class NewScript extends cc.Component {
 
     // 主角跳跃高度
-    @property({
-        default: 0
-    })
-    jumpHeight = 0;
+    @property(Number)
+    public jumpHeight: number = 0;
     // 主角跳跃持续时间
-    @property({
-        default: 0
-    })
-    jumpDuration = 0;
+    @property(Number)
+    public jumpDuration: number = 0;
     // 辅助形变动作时间
-    @property({
-        default: 0
-    })
-    squashDuration = 0;
+    @property(Number)
+    public squashDuration: number = 0;
     // 最大移动速度
-    @property({
-        default: 0
-    })
-    maxMoveSpeed = 0;
+    @property(Number)
+    public maxMoveSpeed: number = 0;
     // 加速度
-    @property({
-        default: 0
-    })
-    accel = 0;
+    @property(Number)
+    public accel: number = 0;
     // 跳跃音效资源
     @property({
-        default: '',
-        url: cc.AudioClip
+        type: cc.AudioClip
     })
-    jumpAudio = '';
-
+    public jumpAudio: cc.AudioClip = null;
     // 加速度方向开关
-    accLeft = false;
-    accRight = false;
-
+    public accLeft: boolean = false;
+    public accRight: boolean = false;
     // 主角当前水平方向速度
-    xSpeed = 0;
+    public xSpeed: number = 0;
     // screen boundaries
-    minPosX = 0;
-    maxPosX = 0;
-
+    public minPosX: number = 0;
+    public maxPosX: number = 0;
     // 初始化跳跃动作
-    jumpAction = null;
+    public jumpAction: cc.Action = null;
 
     // use this for initialization
     onLoad () {

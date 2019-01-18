@@ -55,13 +55,13 @@ cc.Class({
 
     onKeyDown (event) {
         switch(event.keyCode) {
-            case cc.macro.KEY.a:
-            case cc.macro.KEY.left:
+            case cc.KEY.a:
+            case cc.KEY.left:
                 this.accLeft = true;
                 this.accRight = false;
                 break;
-            case cc.macro.KEY.d:
-            case cc.macro.KEY.right:
+            case cc.KEY.d:
+            case cc.KEY.right:
                 this.accLeft = false;
                 this.accRight = true;
                 break;
@@ -70,12 +70,12 @@ cc.Class({
 
     onKeyUp (event) {
         switch(event.keyCode) {
-            case cc.macro.KEY.a:
-            case cc.macro.KEY.left:
+            case cc.KEY.a:
+            case cc.KEY.left:
                 this.accLeft = false;
                 break;
-            case cc.macro.KEY.d:
-            case cc.macro.KEY.right:
+            case cc.KEY.d:
+            case cc.KEY.right:
                 this.accRight = false;
                 break;
         }
