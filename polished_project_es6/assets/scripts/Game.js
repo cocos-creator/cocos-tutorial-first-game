@@ -38,7 +38,9 @@ export default class NewScript extends cc.Component {
     scoreDisplay = null;
     
     // 得分音效资源
-    @property(cc.AudioClip)
+    @property({
+        type: cc.AudioClip
+    })
     scoreAudio = null;
         
     @property(cc.Node)
@@ -60,6 +62,8 @@ export default class NewScript extends cc.Component {
     })
     touchHint = '';
 
+    isPlaying = false;
+
     // use this for initialization
     onLoad () {
         // 获取地平面的 y 轴坐标
@@ -73,8 +77,8 @@ export default class NewScript extends cc.Component {
         this.timer = 0;
         this.starDuration = 0;
 
-        // is showing menu or running game
-        this.isRunning = false;
+        // is showing menu or isPlaying game
+        this.isPlaying = false;
 
         // initialize control hint
         var hintText = cc.sys.isMobile ? this.touchHint : this.keyboardHint;
@@ -88,13 +92,13 @@ export default class NewScript extends cc.Component {
     onStartGame () {
         // 初始化计分
         this.resetScore();
-        // set game state to running
-        this.isRunning = true;
+        // set game state to isPlaying
+        this.isPlaying = true;
         // set button and gameover text out of screen
-        this.btnNode.setPositionX(3000);
+        this.btnNode.x = 3000;
         this.gameOverNode.active = false;
         // reset player position and move speed
-        this.player.startMoveAt(cc.p(0, this.groundY));
+        this.player.startMoveAt(cc.v2(0, this.groundY));
         // spawn star
         this.spawnNewStar();
     }
@@ -118,7 +122,7 @@ export default class NewScript extends cc.Component {
         newStar.getComponent(Star).init(this);
         // start star timer and store star reference
         this.startTimer();
-        this.currentStar = newStar;
+        this.currentStar = newStar; 
     }
 
     despawnStar (star) {
@@ -128,28 +132,19 @@ export default class NewScript extends cc.Component {
 
     startTimer () {
         // get a life duration for next star
-        this.starDuration = this.minStarDuration + cc.random0To1() * (this.maxStarDuration - this.minStarDuration);
+        this.starDuration = this.minStarDuration + Math.random() * (this.maxStarDuration - this.minStarDuration);
         this.timer = 0;
     }
 
     getNewStarPosition () {
-        // if there's no star, set a random x pos
-        if (!this.currentStar) {
-            this.currentStarX = cc.randomMinus1To1() * this.node.width/2;
-        }
         var randX = 0;
         // 根据地平面位置和主角跳跃高度，随机得到一个星星的 y 坐标
-        var randY = this.groundY + cc.random0To1() * this.player.jumpHeight + 50;
-        // 根据屏幕宽度和上一个星星的 x 坐标，随机得到一个新生成星星 x 坐标
+        var randY = this.groundY + Math.random() * this.player.getComponent('Player').jumpHeight + 50;
+        // 根据屏幕宽度，随机得到一个星星 x 坐标
         var maxX = this.node.width/2;
-        if (this.currentStarX >= 0) {
-            randX = -cc.random0To1() * maxX;
-        } else {
-            randX = cc.random0To1() * maxX;
-        }
-        this.currentStarX = randX;
+        randX = (Math.random() - 0.5) * 2 * maxX;
         // 返回星星坐标
-        return cc.p(randX, randY);
+        return cc.v2(randX, randY);
     }
 
     gainScore (pos) {
@@ -188,7 +183,7 @@ export default class NewScript extends cc.Component {
 
     // called every frame
     update (dt) {
-        if (!this.isRunning) return;
+        if (!this.isPlaying) return;
         // 每帧更新计时器，超过限度还没有生成新的星星
         // 就会调用游戏失败逻辑
         if (this.timer > this.starDuration) {
@@ -203,7 +198,7 @@ export default class NewScript extends cc.Component {
        this.player.enabled = false;
        this.player.stopMove();
        this.currentStar.destroy();
-       this.isRunning = false;
-       this.btnNode.setPositionX(0);
+       this.isPlaying = false;
+       this.btnNode.x = 0;
     }
 }

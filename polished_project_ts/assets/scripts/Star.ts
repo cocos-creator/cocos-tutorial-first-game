@@ -3,9 +3,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewScript extends cc.Component {
     // 星星和主角之间的距离小于这个数值时，就会完成收集
-    @property({
-        default: 0
-    })
+    @property
     pickRadius = 0;
     
     // 暂存 Game 对象的引用
@@ -30,7 +28,7 @@ export default class NewScript extends cc.Component {
         // 根据 player 节点位置判断距离
         var playerPos = this.game.player.getCenterPos();
         // 根据两点位置计算两点之间距离
-        var dist = cc.pDistance(this.node.position, playerPos);
+        var dist = this.node.position.sub(playerPos).mag();
         return dist;
     }
 
