@@ -29,19 +29,32 @@ cc.Class({
         scoreAudio: {
             default: null,
             type: cc.AudioClip
-        }
+        },
+        btnNode: {
+            default: null,
+            type: cc.Node
+        },
     },
 
     onLoad: function () {
         // 获取地平面的 y 轴坐标
         this.groundY = this.ground.y + this.ground.height/2;
-        // 初始化计时器
-        this.timer = 0;
         this.starDuration = 0;
-        // 生成一个新的星星
-        this.spawnNewStar();
+        
         // 初始化计分
         this.score = 0;
+    },
+
+    onStartGame: function () {
+        // set button and gameover text out of screen
+        this.btnNode.x = 3000;
+        // 初始化计时器
+        this.timer = 0;
+        // 生成一个新的星星
+        this.spawnNewStar();
+        // 重置计时器，根据消失时间范围随机取一个值
+        this.starDuration = this.minStarDuration + Math.random() * (this.maxStarDuration - this.minStarDuration);
+        this.timer = 0; 
     },
 
     spawnNewStar: function() {
@@ -53,9 +66,6 @@ cc.Class({
         newStar.setPosition(this.getNewStarPosition());
         // 在星星组件上暂存 Game 对象的引用
         newStar.getComponent('Star').game = this;
-        // 重置计时器，根据消失时间范围随机取一个值
-        this.starDuration = this.minStarDuration + Math.random() * (this.maxStarDuration - this.minStarDuration);
-        this.timer = 0;
     },
 
     getNewStarPosition: function () {
