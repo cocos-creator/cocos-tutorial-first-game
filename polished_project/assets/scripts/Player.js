@@ -96,13 +96,13 @@ cc.Class({
 
     runJumpAction: function () {
         // 跳跃上升
-        var jumpUp = cc.tween().by(this.jumpDuration, {y: this.jumpHeight}, {easing: 'sineOut'});
+        var jumpUp = cc.tween().by(this.jumpDuration, { y: this.jumpHeight }, { easing: 'sineOut' });
         // 下落
-        var jumpDown = cc.tween().by(this.jumpDuration, {y: -this.jumpHeight}, {easing: 'sineIn'});
+        var jumpDown = cc.tween().by(this.jumpDuration, { y: -this.jumpHeight }, { easing: 'sineIn' });
         // 形变
-        var squash = cc.tween().to(this.squashDuration, {scaleX: 1, scaleY: 0.6});
-        var stretch = cc.tween().to(this.squashDuration, {scaleX: 1, scaleY: 1.2});
-        var scaleBack = cc.tween().to(this.squashDuration, {scaleX: 1, scaleY: 1});
+        var squash = cc.tween().to(this.squashDuration, { scaleX: 1, scaleY: 0.6 });
+        var stretch = cc.tween().to(this.squashDuration, { scaleX: 1, scaleY: 1.2 });
+        var scaleBack = cc.tween().to(this.squashDuration, { scaleX: 1, scaleY: 1 });
 
         // 创建一个缓动
         var tween = cc.tween()
