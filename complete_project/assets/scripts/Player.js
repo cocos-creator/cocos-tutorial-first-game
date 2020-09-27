@@ -17,15 +17,23 @@ cc.Class({
         },
     },
 
-    setJumpAction: function () {
+    runJumpAction: function () {
+
         // 跳跃上升
-        var jumpUp = cc.moveBy(this.jumpDuration, cc.v2(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
+        var jumpUp = cc.tween().by(this.jumpDuration, { y: this.jumpHeight }, { easing: 'sineOut' });
+
         // 下落
-        var jumpDown = cc.moveBy(this.jumpDuration, cc.v2(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
-        // 添加一个回调函数，用于在动作结束时调用我们定义的其他方法
-        var callback = cc.callFunc(this.playJumpSound, this);
-        // 不断重复，而且每次完成落地动作后调用回调来播放声音
-        return cc.repeatForever(cc.sequence(jumpUp, jumpDown, callback));
+        var jumpDown = cc.tween().by(this.jumpDuration, { y: -this.jumpHeight }, { easing: 'sineIn' });
+
+        // 创建一个缓动
+        var tween = cc.tween()
+                        // 按 jumpUp，jumpDown 的顺序执行动作
+                        .sequence(jumpUp, jumpDown)
+                        // 添加一个回调函数，在前面的动作都结束时调用我们定义的 playJumpSound() 方法
+                        .call(this.playJumpSound, this);
+
+        // 不断重复
+        return cc.tween().repeatForever(tween);
     },
 
     playJumpSound: function () {
@@ -59,8 +67,8 @@ cc.Class({
 
     onLoad: function() {
         // 初始化跳跃动作
-        this.jumpAction = this.setJumpAction();
-        this.node.runAction(this.jumpAction);
+        var jumpAction = this.runJumpAction();
+        cc.tween(this.node).then(jumpAction).start()
 
         // 加速度方向开关
         this.accLeft = false;

@@ -46,7 +46,7 @@ export default class NewScript extends cc.Component {
         this.maxPosX = this.node.parent.width/2;
 
         // 初始化跳跃动作
-        this.jumpAction = this.setJumpAction();
+        this.jumpAction = this.runJumpAction();
 
         // 初始化键盘输入监听
         this.setInputControl();
@@ -107,19 +107,25 @@ export default class NewScript extends cc.Component {
         this.accRight = false;
     }
 
-    setJumpAction () {
+    runJumpAction () {
         // 跳跃上升
-        var jumpUp = cc.moveBy(this.jumpDuration, cc.v2(0, this.jumpHeight)).easing(cc.easeCubicActionOut());
+        var jumpUp = cc.tween().by(this.jumpDuration, { y: this.jumpHeight }, { easing: 'sineOut' });
         // 下落
-        var jumpDown = cc.moveBy(this.jumpDuration, cc.v2(0, -this.jumpHeight)).easing(cc.easeCubicActionIn());
+        var jumpDown = cc.tween().by(this.jumpDuration, { y: -this.jumpHeight }, { easing: 'sineIn' });
         // 形变
-        var squash = cc.scaleTo(this.squashDuration, 1, 0.6);
-        var stretch = cc.scaleTo(this.squashDuration, 1, 1.2);
-        var scaleBack = cc.scaleTo(this.squashDuration, 1, 1);
-        // 添加一个回调函数，用于在动作结束时调用我们定义的其他方法
-        var callback = cc.callFunc(this.playJumpSound, this);
-        // 不断重复，而且每次完成落地动作后调用回调来播放声音
-        return cc.repeatForever(cc.sequence(squash, stretch, jumpUp, scaleBack, jumpDown, callback));
+        var squash = cc.tween().to(this.squashDuration, { scaleX: 1, scaleY: 0.6 });
+        var stretch = cc.tween().to(this.squashDuration, { scaleX: 1, scaleY: 1.2 });
+        var scaleBack = cc.tween().to(this.squashDuration, { scaleX: 1, scaleY: 1 });
+
+        // 创建一个缓动
+        var tween = cc.tween()
+                        // 按顺序执行动作
+                        .sequence(squash, stretch, jumpUp, scaleBack, jumpDown)
+                        // 添加一个回调函数，在前面的动作都结束时调用我们定义的 playJumpSound() 方法
+                        .call(this.playJumpSound, this);
+
+        // 不断重复
+        return cc.tween().repeatForever(tween);
     }
 
     playJumpSound () {
@@ -136,7 +142,9 @@ export default class NewScript extends cc.Component {
         this.enabled = true;
         this.xSpeed = 0;
         this.node.setPosition(pos);
-        this.node.runAction(this.setJumpAction());
+        
+        var jumpAction = this.runJumpAction();
+        cc.tween(this.node).then(jumpAction).start()
     }
 
     stopMove () {
