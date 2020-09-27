@@ -1,12 +1,18 @@
 {
-  "ver": "1.0.0",
+  "ver": "2.3.5",
   "uuid": "0f0d9bf9-c718-4ab0-bd20-f7a4bfe5909c",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 512,
+  "height": 256,
+  "platformSettings": {},
   "subMetas": {
     "mikado_outline_shadow": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "4f350cc3-5c51-4724-8e3c-2b3663fe7512",
       "rawTextureUuid": "0f0d9bf9-c718-4ab0-bd20-f7a4bfe5909c",
       "trimType": "auto",

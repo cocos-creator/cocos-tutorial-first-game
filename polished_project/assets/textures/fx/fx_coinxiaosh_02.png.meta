@@ -1,12 +1,18 @@
 {
-  "ver": "1.0.0",
+  "ver": "2.3.5",
   "uuid": "3288de19-973d-4800-837f-ee3cb9395c42",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 80,
+  "height": 80,
+  "platformSettings": {},
   "subMetas": {
     "fx_coinxiaosh_02": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "8da41f75-bb51-4ce3-8612-c030112730b1",
       "rawTextureUuid": "3288de19-973d-4800-837f-ee3cb9395c42",
       "trimType": "auto",
