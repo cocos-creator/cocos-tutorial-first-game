@@ -122,7 +122,7 @@ export default class NewScript extends cc.Component {
                         // 按顺序执行动作
                         .sequence(squash, stretch, jumpUp, scaleBack, jumpDown)
                         // 添加一个回调函数，在前面的动作都结束时调用我们定义的 playJumpSound() 方法
-                        .call(this.playJumpSound, this);
+                        .call(() => this.playJumpSound());
 
         // 不断重复
         return cc.tween().repeatForever(tween);
